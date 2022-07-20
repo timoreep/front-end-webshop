@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { NavBar, Footer, NavBarBunner } from "./components";
+import { useState } from "react";
+import {
+  AboutUsPage,
+  HomePage,
+  ProductPage,
+  ProductDetailsPage,
+  LoginPage,
+  ReviewPage,
+  CategoryPage,
+} from "./pages";
 
 function App() {
+  const [token, setToken] = useState(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="header_navbar">
+        <NavBar token={token} />
+      </div>
+      <NavBarBunner />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<ProductPage />} />
+        <Route path="/products/:productId" element={<ProductDetailsPage />} />
+        <Route path="/categories/:categoryId" element={<CategoryPage />} />
+        <Route path="/aboutus" element={<AboutUsPage />} />
+        <Route
+          path="/user/login"
+          element={<LoginPage tokenSetter={setToken} />}
+        />
+        <Route path="/reviews" element={<ReviewPage />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
